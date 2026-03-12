@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đề Kiểm Tra Hóa Học 12</title>
+    <style>
+        :root {
+            --bg-color: #e0f7fa;
+            --main-green: #4caf50;
+            --text-yellow: #ffeb3b;
+            --text-blue: #1976d2;
+            --box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            --border-radius: 8px;
+        }
+        body {
+            background-color: var(--bg-color);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        .header-title {
+            background-color: var(--main-green);
+            color: var(--text-yellow);
+            text-align: center;
+            padding: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            border: 3px solid #388e3c;
+            border-radius: var(--border-radius);
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.5), 0 4px 6px rgba(0,0,0,0.3);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
+        }
+        .header-subtitle {
+            text-align: center;
+            color: var(--text-blue);
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .info-group {
+            margin-bottom: 15px;
+        }
+        .info-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .info-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: var(--text-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: background 0.3s;
+        }
+        button:hover:not(:disabled) {
+            background-color: #1565c0;
+        }
+        button:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .question-container {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            background: #fafafa;
+        }
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+        }
+        .options label:hover {
+            background-color: #f0f0f0;
+        }
+        .tf-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+        .tf-table th, .tf-table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+        .tf-table td:first-child {
+            text-align: left;
+        }
+        .numeric-input {
+            width: 150px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        /* Drag and drop classes */
+        .drag-pool {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #eef;
+            border-radius: 4px;
+        }
+        .drag-item {
+            padding: 8px 15px;
+            background: #fff;
+            border: 2px solid var(--text-blue);
+            border-radius: 4px;
+            cursor: grab;
+            touch-action: none;
+            user-select: none;
+            font-weight: bold;
+            transition: transform 0.1s, background 0.2s;
+        }
+        .drag-item.selected {
+            background: var(--text-yellow);
+            transform: scale(1.05);
+            border-color: #f57f17;
+        }
+        .drag-item.used {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .drop-slot {
+            display: inline-block;
+            min-width: 100px;
+            height: 30px;
+            border: 2px dashed #999;
+            background: #fff;
+            vertical-align: middle;
+            margin: 0 5px;
+            text-align: center;
+            line-height: 30px;
+            cursor: pointer;
+            border-radius: 4px;
+            color: var(--text-blue);
+            font-weight: bold;
+        }
+        .drop-slot.filled {
+            border: 2px solid var(--main-green);
+            background: #e8f5e9;
+        }
+        .drop-slot.selected-target {
+            border-color: #f57f17;
+            background: #fffde7;
+        }
+
+        /* Result styling */
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .result-table th, .result-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .result-table th {
+            background-color: #f5f5f5;
+        }
+        #saveStatus {
+            margin-top: 15px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .status-loading { background: #fff3e0; color: #e65100; }
+        .status-success { background: #e8f5e9; color: #2e7d32; }
+        .status-error { background: #ffebee; color: #c62828; }
+
+        .btn-group {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        #actionContainer {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        /* Chemistry Strict CSS */
+        .chem {
+            white-space: nowrap !important;
+            letter-spacing: normal !important;
+            word-spacing: normal !important;
+            text-indent: 0 !important;
+            text-align: left !important;
+            font-variant-ligatures: none !important;
+            display: inline-block !important;
+        }
+        
+        /* Reaction condition wrapper */
+        .reaction-arrow {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+            line-height: 1;
+            padding: 0 5px;
+        }
+        .reaction-cond {
+            font-size: 0.7em;
+            margin-bottom: -2px;
+        }
+
+        /* Review Mode Colors */
+        .correct-text { color: green; font-weight: bold; }
+        .wrong-text { color: red; font-weight: bold; }
+        .correction-box {
+            display: inline-block;
+            margin-left: 5px;
+            padding: 2px 8px;
+            background: #e8f5e9;
+            border: 1px solid green;
+            color: green;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .slot-correct { border-color: green !important; background: #e8f5e9 !important; color: green !important; }
+        .slot-wrong { border-color: red !important; background: #ffebee !important; color: red !important; text-decoration: line-through; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-title">ĐỀ ÔN TẬP KIỂM TRA GIỮA HỌC KÌ 2 - HÓA HỌC 12</div>
+    <div class="header-subtitle">Thầy Lê Nguyễn Cường</div>
+
+    <div id="studentInfo">
+        <div class="info-group">
+            <label for="hoTen">Họ và Tên:</label>
+            <input type="text" id="hoTen" placeholder="Nhập họ và tên...">
+        </div>
+        <div class="info-group">
+            <label for="lop">Lớp:</label>
+            <input type="text" id="lop" placeholder="Nhập lớp...">
+        </div>
+        <button id="btnStart">Làm bài</button>
+    </div>
+
+    <div id="quizArea" class="hidden">
+        <div id="questionWrapper"></div>
+        <div id="actionContainer"></div>
+    </div>
+
+    <div id="resultArea" class="hidden">
+        <h2>Kết Quả Làm Bài</h2>
+        <table class="result-table">
+            <tr><th>Điểm số (thang 10)</th><td id="resScore"></td></tr>
+            <tr><th>Số câu đúng</th><td id="resCorrect"></td></tr>
+            <tr><th>Số câu sai</th><td id="resWrong"></td></tr>
+            <tr><th>Số câu chưa làm</th><td id="resUnanswered"></td></tr>
+        </table>
+        <div id="saveStatus"></div>
+        <div class="btn-group">
+            <button id="btnReview" class="hidden">Xem lại kết quả</button>
+            <button id="btnRetry" class="hidden">Làm lại bài</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// Raw Database - Not altered in content, strictly formatted HTML
+const rawQuestions = [
+    // --- PHẦN 1 (16 Câu) ---
+    {
+        type: 'single', part: 1, originalId: 'p1_1',
+        text: 'Trong vỏ Trái Đất, những kim loại nào sau đây tồn tại chủ yếu dưới dạng đơn chất.',
+        options: [
+            { text: '<span class="chem">Ag</span>, <span class="chem">Au</span>', key: 'A', isCorrect: true },
+            { text: '<span class="chem">Zn</span>, <span class="chem">Fe</span>', key: 'B', isCorrect: false },
+            { text: '<span class="chem">Mg</span>, <span class="chem">Al</span>', key: 'C', isCorrect: false },
+            { text: '<span class="chem">Na</span>, <span class="chem">Ba</span>', key: 'D', isCorrect: false }
+        ]
+    },
+    {
+        type: 'single', part: 1, originalId: 'p1_2',
+        text: 'Nguyên tắc tách kim loại là',
+        options: [
+            { text: 'khử cation kim loại thành kim loại.', key: 'A', isCorrect: true },
+            { text: 'oxi hóa ion kim loại thành nguyên tử.', key: 'B', isCorrect: false },
+            { text: 'khử nguyên tử kim loại thành ion.', key: 'C', isCorrect: false },
+            { text: 'oxi hóa nguyên tử kim loại thành ion.', key: 'D', isCorrect: false }
+        ]
+    },
+    {
+        type: 'single', part: 1, originalId: 'p1_3',
+        text: 'Kim loại nào sau đây được điều chế bằng phương pháp thủy luyện?',
+        options: [
+            { text: '<span class="chem">Cu</span>', key: 'A', isCorrect: true },
+            { text: '<span class="chem">Na</span>', key: 'B', isCorrect: false },
+            { text: '<span class="chem">Ca</span>', key: 'C', isCorrect: false },
+            { text: '<span class="chem">Mg</span>', key: 'D', isCorrect: false }
+        ]
+    },
+    {
+        type: 'single', part: 1, originalId: 'p1_4',
+        text: 'Cho một thanh <span class="chem">Fe</span> tiếp xúc với một thanh <span class="chem">Cu</span>, sau đó nhúng vào dung dịch <span class="chem">HCl</span>, hiện tượng sẽ quan sát được là',
+        options: [
+            { text: 'thanh <span class="chem">Fe</span> tan và bọt khí chỉ thoát ra từ thanh <span class="chem">Cu</span>.', key: 'A', isCorrect: false },
+            { text: 'cả 2 thanh tan đồng thời và khí thoát ra từ 2 thanh.', key: 'B', isCorrect: false },
+            { text: 'thanh <span class="chem">Fe</span> tan trước và bọt khí thoát ra trên thanh <span class="chem">Fe</span>.', key: 'C', isCorrect: false },
+            { text: 'thanh <span class="chem">Fe</span> tan và bọt khí thoát ra từ cả thanh <span class="chem">Fe</span> và thanh <span class="chem">Cu</span>.', key: 'D', isCorrect: true }
+        ]
+    },
+    {
+        type: 'single', part: 1, originalId: 'p1_5',
+        text: 'Thí nghiệm nào sau đây <span class="chem">Fe</span> chỉ bị ăn mòn hóa học?',
+        options: [
+            { text: 'Đốt cháy dây sắt trong không khí khô.', key: 'A', isCorrect: true },
+            { text: 'Cho hợp kim <span class="chem">Fe</span> – <span class="chem">Cu</span> vào dung dịch <span class="chem">CuSO<sub>4</sub></span>.', key: 'B', isCorrect: false },
+            { text: 'Để mẩu gang lâu ngày trong không khí ẩm.', key: 'C', isCorrect: false },
+            { text: 'Cho <span class="chem">Fe</span> vào dung dịch <span class="chem">AgNO<sub>3</sub></span>.', key: 'D', isCorrect: false }
+        ]
+    },
+    {
+        type: 'single', part: 1, originalId: 'p1_6',
+        text: 'Phát biểu nào sau đây sai?',
+        options: [
+            { text: 'Tính chất vật lí của hợp kim khác nhiều so với của đơn chất thành phần.', key: 'A', isCorrect: false },
+            { text: 'Tính chất hoá học của hợp kim tương tự tính chất của đơn chất thành phần.', key: 'B', isCorrect: false },
+            { text: 'Tính chất cơ học của hợp kim phụ thuộc vào thành phần đơn chất của hợp kim.', key: 'C', isCorrect: false },
+            { text: 'Tính chất cơ học của hợp kim không phụ thuộc vào hàm lượng các đơn chất.', key: 'D', isCorrect: true }
+        ]
+    },
+    {
+        type: 'single', part: 1, originalId: 'p1_7',
+        text: 'Kẽm (Zinc) khử được cation kim loại trong dãy muối nào dưới đây?',
+        options: [
+            { text: '<span class="chem">Cu(NO<sub>3</sub>)<sub>2</sub></span>, <span class="chem">Pb(NO<sub>3</sub>)<sub>2</sub></span>, <span class="chem">Ni(NO<sub>3</sub>)<sub>2</sub></span>.', key: 'A', isCorrect: true },
+            { text: '<span class="chem">AlCl<sub>3</sub></span>, <span class="chem">MgCl<sub>2</sub></span>, <span class="chem">Pb(NO<sub>3</sub>)<sub>2</sub></span>.', key: 'B', isCorrect: false },
+            { text: '<span class="chem">AlCl<sub>3</sub></span>, <span class="chem">Ni(NO<sub>3</sub>)<sub>2</sub></span>, <span class="chem">Pb(NO<sub>3</sub>)<sub>2</sub></span>.', key: 'C', isCorrect: false },
+            { text: '<span class="chem">MgCl<sub>2</sub></span>, <span class="chem">NaCl</span>, <span class="chem">Cu(NO<sub>3</sub>)<sub>2</sub></span>.', key: 'D', isCorrect: false }
+        ]
+    },
+    {
+        type: 'single', part: 1, originalId: 'p1_8',
+        text: 'Thí nghiệm nào sau đây không xảy ra phản ứng?',
+        options: [
+            { text: 'Cho kim loại <span class="chem">Ag</span> vào dung dịch <span class="chem">HCl</span>.', key: 'A', isCorrect: true },
+            { text: 'Cho kim loại <span class="chem">Cu</span> vào dung dịch <span class="chem">HNO<sub>3</sub></span>.', key: 'B', isCorrect: false },
+            { text: 'Cho kim loại <span class="chem">Fe</span> vào dung dịch <span class="chem">Fe<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub></span>.', key: 'C', isCorrect: false },
+            { text: 'Cho kim loại <span class="chem">Zn</span> vào dung dịch <span class="chem">CuSO<sub>4</sub></span>.', key: 'D', isCorrect: false }
+        ]
+    },
+    {
+        type: 'single', part: 1, originalId: 'p1_9',
+        text: 'Kim loại nào sau đây phản ứng được với dung dịch <span class="chem">FeSO<sub>4</sub></span> và dung dịch <span class="chem">HNO<sub>3</sub></span> đặc, nguội?',
+        options: [
+            { text: '<span class="chem">Mg</span>.', key: 'A', isCorrect: true },
+            { text: '<span class="chem">Al</span>.', key: 'B', isCorrect: false },
+            { text: '<span class="chem">Cr</span>.', key: 'C', isCorrect: false },
+            { text: '<span class="chem">Cu</span>.', key: 'D', isCorrect: false }
+        ]
+    },
+    {
+        type: 'single', part: 1, originalId: 'p1_10',
+        text: 'Dãy kim loại nào sau đây có phản ứng với dung dịch sulfuric acid đặc, nóng tạo thành khí sulfur dioxide?',
+        options: [
+            { text: '<span class="chem">Na</span>, <span class="chem">K</span>, <span class="chem">Au</span>.', key: 'A', isCorrect: false },
+            { text: '<span class="chem">Al</span>, <span class="chem">Fe</span>, <span class="chem">Cu</span>.', key: 'B', isCorrect: true },
+            { text: '<span class="chem">Ag</span>, <span class="chem">Au</span>, <span class="chem">Pt</span>.', key: 'C', isCorrect: false },
+            { text: '<span class="chem">Cu</span>, <span class="chem">Ag</span>, <span class="chem">Au</span>.', key: 'D', isCorrect: false }
+        ]
+    },
+    {
+        type: 'single', part: 1, originalId: 'p1_11',
+        text: 'Thí nghiệm nào sau đây không xảy ra ăn mòn điện hoá?',
+        options: [
+            { text: 'Đốt cháy dây sắt trong không khí khô.', key: 'A', isCorrect: true },
+            { text: 'Cho hợp kim <span class="chem">Fe</span> - <span class="chem">Cu</span> vào dung dịch <span class="chem">CuSO<sub>4</sub></span>.', key: 'B', isCorrect: false },
+            { text: 'Đặt mẫu gang lâu ngày trong không khí ẩm.', key: 'C', isCorrect: false },
+            { text: 'Cho kim loại <span class="chem">Fe</span> vào dung dịch <span class="chem">AgNO<sub>3</sub></span>.', key: 'D', isCorrect: false }
+        ]
+    },
+    {
+        type: 'single', part: 1, originalId: 'p1_12',
+        text: 'Để các hợp kim: <span class="chem">Fe</span> – <span class="chem">Cu</span>; <span class="chem">Fe</span> – <span class="chem">C</span>; <span class="chem">Zn</span> – <span class="chem">Fe</span>; <span class="chem">Mg</span> – <span class="chem">Fe</span> lâu ngày trong không khí ẩm. Số hợp kim mà trong đó <span class="chem">Fe</span> bị ăn mòn điện hoá là',
+        options: [
+            { text: '1.', key: 'A', isCorrect: false },
+            { text: '2.', key: 'B', isCorrect: true },
+            { text: '3.', key: 'C', isCorrect: false },
+            { text: '4.', key: 'D', isCorrect: false }
+        ]
+    },
+    {
+        type: 'single', part: 1, originalId: 'p1_13',
+        text: 'Hiện tượng nào sau đây không phải là hiện tượng ăn mòn kim loại?',
+        options: [
+            { text: 'Ống thép bị gỉ sắt màu nâu đỏ.', key: 'A', isCorrect: false },
+            { text: 'Vòng bạc bị xỉn màu.', key: 'B', isCorrect: false },
+            { text: 'Công trình bằng đá bị ăn mòn bởi mưa acid.', key: 'C', isCorrect: true },
+            { text: 'Chuông đồng bị gỉ đồng màu xanh.', key: 'D', isCorrect: false }
+        ]
+    },
+    {
+        type: 'single', part: 1, originalId: 'p1_14',
+        text: 'Trong hiện tượng ăn mòn kim loại xảy ra quá trình nào sau đây?',
+        options: [
+            { text: 'Quá trình oxi hoá kim loại.', key: 'A', isCorrect: true },
+            { text: 'Quá trình khử kim loại.', key: 'B', isCorrect: false },
+            { text: 'Quá trình điện phân.', key: 'C', isCorrect: false },
+            { text: 'Sự mài mòn kim loại.', key: 'D', isCorrect: false }
+        ]
+    },
+    {
+        type: 'single', part: 1, originalId: 'p1_15',
+        text: 'Có 3 ống nghiệm sau: Ống 1: Đinh sắt, không khí, nước; Ống 2: Đinh sắt, nước, dầu hỏa; Ống 3: Đinh sắt, không khí, calcium chloride. Trong những ống nghiệm trên thì ống nghiệm nào sau đây, đinh sắt sẽ bị gỉ sau vài ngày?',
+        options: [
+            { text: 'chỉ có ống nghiệm 1).', key: 'A', isCorrect: true },
+            { text: 'chỉ có ống nghiệm 2).', key: 'B', isCorrect: false },
+            { text: 'ống nghiệm 1) và 3).', key: 'C', isCorrect: false },
+            { text: 'ống nghiệm 2) và 3).', key: 'D', isCorrect: false }
+        ]
+    },
+    {
+        type: 'single', part: 1, originalId: 'p1_16',
+        text: 'Lần lượt nối thanh <span class="chem">Zn</span> với mỗi kim loại sau đây và cho vào dung dịch <span class="chem">HCl</span>. Quá trình ăn mòn thanh <span class="chem">Zn</span> xảy ra nhanh nhất khi nối với',
+        options: [
+            { text: '<span class="chem">Mg</span>.', key: 'A', isCorrect: false },
+            { text: '<span class="chem">Pb</span>.', key: 'B', isCorrect: false },
+            { text: '<span class="chem">Ag</span>.', key: 'C', isCorrect: true },
+            { text: '<span class="chem">Cu</span>.', key: 'D', isCorrect: false }
+        ]
+    },
+
+    // --- PHẦN 2 (2 Câu Đ/S) ---
+    {
+        type: 'true_false', part: 2, originalId: 'p2_1',
+        text: 'Để lợp nhà, các tấm tôn (thép mỏng mạ kẽm) được gắn với nhau bởi các đinh thép. Theo thời gian, các tấm tôn bị ăn mòn. Những nhận định nào sau đây là đúng-sai?',
+        items: [
+            { text: 'Vị trí đóng đinh thép dễ xảy ra ăn mòn hơn các vị trí khác.', key: 'a', isTrue: true },
+            { text: 'Tấm tôn bị ăn mòn từ trong ra ngoài do thép bị ăn mòn trước kẽm.', key: 'b', isTrue: false },
+            { text: 'Sắt trong tấm tôn không bị ăn mòn theo thời gian.', key: 'c', isTrue: false },
+            { text: 'Lớp tráng kẽm bị ăn mòn trước.', key: 'd', isTrue: true }
+        ]
+    },
+    {
+        type: 'true_false', part: 2, originalId: 'p2_2',
+        text: 'Sắt (<span class="chem">Fe</span>) có số hiệu nguyên tử là 26. Trong vỏ Trái Đất, sắt là nguyên tố kim loại phổ biến thứ 2 (sau nhôm). Ứng dụng chủ yếu của sắt là để tạo ra các hợp kim thép dùng trong xây dựng và chế tạo.',
+        items: [
+            { text: 'Ở trạng thái cơ bản, nguyên tử <span class="chem">Fe</span> có 6 electron ở lớp ngoài cùng.', key: 'a', isTrue: false },
+            { text: 'Trong vỏ Trái Đất, sắt tồn tại ở dạng hợp chất chủ yếu trong các quặng.', key: 'b', isTrue: true },
+            { text: 'Trong hợp chất, số oxi hoá của sắt chủ yếu là +2 và +3.', key: 'c', isTrue: true },
+            { text: 'Kim loại sắt tác dụng với chlorine dư tạo ra sản phẩm là <span class="chem">FeCl<sub>2</sub></span>.', key: 'd', isTrue: false }
+        ]
+    },
+
+    // --- PHẦN 3 (4 Câu Số) ---
+    {
+        type: 'numeric', part: 3, originalId: 'p3_1',
+        text: 'Cho các kim loại sau: <span class="chem">K</span>, <span class="chem">Ba</span>, <span class="chem">Cu</span> và <span class="chem">Ag</span>. Số kim loại có thể được điều chế bằng phương pháp điện phân dung dịch (với điện cực trơ) là bao nhiêu?',
+        correctValue: 2
+    },
+    {
+        type: 'numeric', part: 3, originalId: 'p3_2',
+        text: 'Cho các phản ứng sau:<br>(a) <span class="chem">CuO</span> + <span class="chem">H<sub>2</sub></span> <span class="reaction-arrow"><span class="reaction-cond">t&deg;</span><span>&rarr;</span></span> <span class="chem">Cu</span> + <span class="chem">H<sub>2</sub>O</span>;<br>(b) <span class="chem">2CuSO<sub>4</sub></span> + <span class="chem">2H<sub>2</sub>O</span> &rarr; <span class="chem">2Cu</span> + <span class="chem">O<sub>2</sub></span> + <span class="chem">2H<sub>2</sub>SO<sub>4</sub></span>;<br>(c) <span class="chem">Fe</span> + <span class="chem">CuSO<sub>4</sub></span> &rarr; <span class="chem">FeSO<sub>4</sub></span> + <span class="chem">Cu</span>;<br>(d) <span class="chem">2Al</span> + <span class="chem">Cr<sub>2</sub>O<sub>3</sub></span> <span class="reaction-arrow"><span class="reaction-cond">t&deg;</span><span>&rarr;</span></span> <span class="chem">Al<sub>2</sub>O<sub>3</sub></span> + <span class="chem">2Cr</span>.<br>Số phản ứng dùng để điều chế kim loại bằng phương pháp nhiệt luyện là bao nhiêu?',
+        correctValue: 2
+    },
+    {
+        type: 'numeric', part: 3, originalId: 'p3_3',
+        text: 'Điện phân nóng chảy <span class="chem">Al<sub>2</sub>O<sub>3</sub></span> thấy có 3,7185 L (đkc) khí thoát ra. Khối lượng kim loại thu được là bao nhiêu? (Al=27)',
+        correctValue: 5.4
+    },
+    {
+        type: 'numeric', part: 3, originalId: 'p3_4',
+        text: 'Cho các tính chất của kim loại: Tính dẻo, tính cứng, tính dẫn điện, ánh kim, khối lượng riêng, tính dẫn nhiệt. Có bao nhiêu tính chất vật lí riêng của kim loại trong các tính chất trên?',
+        correctValue: 2
+    },
+
+    // --- PHẦN 4 (2 Câu Kéo Thả - Tổng 4 vị trí) ---
+    {
+        type: 'drag_drop', part: 4, originalId: 'p4_1',
+        text: 'Kéo thả từ thích hợp vào chỗ trống:<br>Hầu hết các kim loại chỉ có từ 1 electron đến <span class="drop-slot" data-slot-id="slot_1"></span> electron lớp ngoài cùng. Liên kết kim loại là liên kết được hình thành giữa các nguyên tử và cation kim loại trong mạng tinh thể do sự tham gia của các <span class="drop-slot" data-slot-id="slot_2"></span>.',
+        drags: [
+            { id: 'drag_1', text: '3' },
+            { id: 'drag_2', text: 'electron tự do' }
+        ],
+        correctMapping: { 'slot_1': 'drag_1', 'slot_2': 'drag_2' }
+    },
+    {
+        type: 'drag_drop', part: 4, originalId: 'p4_2',
+        text: 'Kéo thả từ thích hợp vào chỗ trống:<br>Kim loại có tính dẫn điện tốt nhất là <span class="drop-slot" data-slot-id="slot_3"></span>. Người ta dùng bột <span class="drop-slot" data-slot-id="slot_4"></span> để xử lý thuỷ ngân rơi vãi khi nhiệt kế bị vỡ.',
+        drags: [
+            { id: 'drag_3', text: 'silver' },
+            { id: 'drag_4', text: 'sulfur' }
+        ],
+        correctMapping: { 'slot_3': 'drag_3', 'slot_4': 'drag_4' }
+    }
+];
+
+let questions = [];
+let currentIndex = 0;
+let userAnswers = {};
+let daGuiDuLieu = false;
+let isReviewMode = false;
+
+// Script URL here
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwIM_ebESoJbwh6ymIXSH1SB3B25p-Bt1mSe6XD4YPwWDQiG75_rO3A3c8GU2H62IKh/exec'; // User should replace with real Web App URL if needed.
+
+function escapeHTML(str) {
+    return str.replace(/[&<>"']/g, function(m) {
+        switch (m) {
+            case '&': return '&amp;';
+            case '<': return '&lt;';
+            case '>': return '&gt;';
+            case '"': return '&quot;';
+            case "'": return '&#039;';
+        }
+    });
+}
+
+function shuffleArray(array) {
+    let arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+function initQuiz() {
+    const hoTen = document.getElementById('hoTen').value.trim();
+    const lop = document.getElementById('lop').value.trim();
+    if (!hoTen || !lop) {
+        alert("Vui lòng nhập đủ Họ tên và Lớp.");
+        return;
+    }
+
+    // Xáo trộn 24 câu
+    questions = shuffleArray(rawQuestions).map((q, idx) => {
+        let newQ = JSON.parse(JSON.stringify(q));
+        newQ.displayNumber = idx + 1;
+        
+        if (newQ.type === 'single') {
+            newQ.dapAnDungGoc = newQ.options.find(o => o.isCorrect).key;
+            newQ.options = shuffleArray(newQ.options);
+            const labels = ['A', 'B', 'C', 'D'];
+            newQ.options.forEach((opt, i) => { opt.displayLabel = labels[i]; });
+        } else if (newQ.type === 'true_false') {
+            newQ.dapAnDungGoc = newQ.items.map(i => ({key: i.key, isTrue: i.isTrue}));
+            newQ.items = shuffleArray(newQ.items);
+            const labels = ['a', 'b', 'c', 'd'];
+            newQ.items.forEach((item, i) => { item.displayLabel = labels[i]; });
+        } else if (newQ.type === 'drag_drop') {
+            newQ.drags = shuffleArray(newQ.drags);
+        }
+        return newQ;
+    });
+
+    userAnswers = {};
+    currentIndex = 0;
+    daGuiDuLieu = false;
+    isReviewMode = false;
+
+    document.getElementById('studentInfo').classList.add('hidden');
+    document.getElementById('quizArea').classList.remove('hidden');
+    
+    renderQuestion();
+}
+
+function renderQuestion() {
+    const q = questions[currentIndex];
+    const wrapper = document.getElementById('questionWrapper');
+    let html = `<div class="question-text">Câu ${q.displayNumber}: ${q.text}</div>`;
+
+    if (q.type === 'single') {
+        html += `<div class="options">`;
+        q.options.forEach(opt => {
+            const safeId = `q${q.originalId}_${opt.key}`;
+            const checked = userAnswers[q.originalId] === opt.key ? 'checked' : '';
+            html += `
+                <label for="${safeId}">
+                    <input type="radio" name="q${q.originalId}" id="${safeId}" value="${opt.key}" ${checked} onchange="saveAnswer('${q.originalId}', '${opt.key}')">
+                    ${opt.displayLabel}. ${opt.text}
+                </label>
+            `;
+        });
+        html += `</div>`;
+    } 
+    else if (q.type === 'true_false') {
+        html += `<table class="tf-table"><tr><th>Phát biểu</th><th>Đúng</th><th>Sai</th></tr>`;
+        q.items.forEach(item => {
+            const safeIdT = `q${q.originalId}_${item.key}_T`;
+            const safeIdF = `q${q.originalId}_${item.key}_F`;
+            if (!userAnswers[q.originalId]) userAnswers[q.originalId] = {};
+            const checkedT = userAnswers[q.originalId][item.key] === 'True' ? 'checked' : '';
+            const checkedF = userAnswers[q.originalId][item.key] === 'False' ? 'checked' : '';
+            
+            html += `
+                <tr>
+                    <td>${item.displayLabel}) ${item.text}</td>
+                    <td><input type="radio" name="tf_${item.key}" id="${safeIdT}" value="True" ${checkedT} onchange="saveTFAnswer('${q.originalId}', '${item.key}', 'True')"></td>
+                    <td><input type="radio" name="tf_${item.key}" id="${safeIdF}" value="False" ${checkedF} onchange="saveTFAnswer('${q.originalId}', '${item.key}', 'False')"></td>
+                </tr>
+            `;
+        });
+        html += `</table>`;
+    }
+    else if (q.type === 'numeric') {
+        const val = userAnswers[q.originalId] || '';
+        html += `<input type="text" class="numeric-input" id="num_${q.originalId}" value="${val}" oninput="saveNumAnswer('${q.originalId}', this.value)" placeholder="Nhập số...">`;
+    }
+    else if (q.type === 'drag_drop') {
+        if (!userAnswers[q.originalId]) userAnswers[q.originalId] = {};
+        
+        html += `<div class="drag-pool" id="pool_${q.originalId}">`;
+        q.drags.forEach(drag => {
+            // Check if already used
+            let isUsed = false;
+            for(let slot in userAnswers[q.originalId]) {
+                if(userAnswers[q.originalId][slot] === drag.id) isUsed = true;
+            }
+            const usedClass = isUsed ? 'used' : '';
+            html += `<div class="drag-item ${usedClass}" id="${drag.id}" data-text="${escapeHTML(drag.text)}">${drag.text}</div>`;
+        });
+        html += `</div>`;
+    }
+
+    wrapper.innerHTML = html;
+
+    // Restore drag drop state
+    if (q.type === 'drag_drop') {
+        const slots = wrapper.querySelectorAll('.drop-slot');
+        slots.forEach(slot => {
+            const slotId = slot.getAttribute('data-slot-id');
+            const ansDragId = userAnswers[q.originalId][slotId];
+            if (ansDragId) {
+                const dragObj = q.drags.find(d => d.id === ansDragId);
+                if(dragObj) {
+                    slot.innerText = dragObj.text;
+                    slot.classList.add('filled');
+                }
+            }
+        });
+        initDragDropFallback(q.originalId);
+    }
+
+    renderActions();
+}
+
+function saveAnswer(qId, val) {
+    if(isReviewMode) return;
+    userAnswers[qId] = val;
+    renderActions();
+}
+
+function saveTFAnswer(qId, itemKey, val) {
+    if(isReviewMode) return;
+    if (!userAnswers[qId]) userAnswers[qId] = {};
+    userAnswers[qId][itemKey] = val;
+    renderActions();
+}
+
+function saveNumAnswer(qId, val) {
+    if(isReviewMode) return;
+    userAnswers[qId] = val;
+    renderActions();
+}
+
+// Mobile-friendly Drag Drop logic
+let selectedDragId = null;
+function initDragDropFallback(qId) {
+    if(isReviewMode) return;
+    const pool = document.getElementById(`pool_${qId}`);
+    const items = pool.querySelectorAll('.drag-item:not(.used)');
+    const slots = document.getElementById('questionWrapper').querySelectorAll('.drop-slot');
+
+    items.forEach(item => {
+        const handleSelect = (e) => {
+            e.preventDefault();
+            if(item.classList.contains('used')) return;
+            // Deselect others
+            pool.querySelectorAll('.drag-item').forEach(i => i.classList.remove('selected'));
+            slots.forEach(s => s.classList.remove('selected-target'));
+            
+            if (selectedDragId === item.id) {
+                selectedDragId = null; // toggle off
+            } else {
+                selectedDragId = item.id;
+                item.classList.add('selected');
+                // Highlight empty slots
+                slots.forEach(s => {
+                    if(!s.classList.contains('filled')) s.classList.add('selected-target');
+                });
+            }
+        };
+        item.addEventListener('pointerdown', handleSelect);
+    });
+
+    slots.forEach(slot => {
+        const handleSlotSelect = (e) => {
+            e.preventDefault();
+            const slotId = slot.getAttribute('data-slot-id');
+            
+            // If slot has item, return item to pool
+            if (slot.classList.contains('filled')) {
+                const oldDragId = userAnswers[qId][slotId];
+                delete userAnswers[qId][slotId];
+                slot.classList.remove('filled');
+                slot.innerText = '';
+                const oldEl = document.getElementById(oldDragId);
+                if(oldEl) {
+                    oldEl.classList.remove('used');
+                    oldEl.addEventListener('pointerdown', function hs(ev){
+                        ev.preventDefault();
+                        if(this.classList.contains('used')) return;
+                        pool.querySelectorAll('.drag-item').forEach(i => i.classList.remove('selected'));
+                        if (selectedDragId === this.id) selectedDragId = null;
+                        else {
+                            selectedDragId = this.id;
+                            this.classList.add('selected');
+                        }
+                    });
+                }
+            }
+
+            // If an item is selected, put it in slot
+            if (selectedDragId) {
+                userAnswers[qId][slotId] = selectedDragId;
+                const dragEl = document.getElementById(selectedDragId);
+                slot.innerText = dragEl.getAttribute('data-text');
+                slot.classList.add('filled');
+                dragEl.classList.add('used');
+                dragEl.classList.remove('selected');
+                selectedDragId = null;
+                slots.forEach(s => s.classList.remove('selected-target'));
+            }
+            renderActions();
+        };
+        slot.addEventListener('pointerdown', handleSlotSelect);
+    });
+}
+
+function renderActions() {
+    const actionContainer = document.getElementById('actionContainer');
+    actionContainer.innerHTML = '';
+    
+    if (isReviewMode) {
+        if (currentIndex < questions.length - 1) {
+            const btn = document.createElement('button');
+            btn.innerText = 'Câu tiếp theo';
+            btn.onclick = () => { currentIndex++; renderQuestionReview(); };
+            actionContainer.appendChild(btn);
+        } else {
+            const btn = document.createElement('button');
+            btn.innerText = 'Đóng xem lại';
+            btn.onclick = () => {
+                document.getElementById('quizArea').classList.add('hidden');
+                document.getElementById('resultArea').classList.remove('hidden');
+            };
+            actionContainer.appendChild(btn);
+        }
+        return;
+    }
+
+    const q = questions[currentIndex];
+    let isAnswered = false;
+
+    if (q.type === 'single') isAnswered = !!userAnswers[q.originalId];
+    else if (q.type === 'true_false') {
+        const ans = userAnswers[q.originalId];
+        isAnswered = ans && Object.keys(ans).length > 0; // Just needs to select something to proceed to next screen
+    }
+    else if (q.type === 'numeric') {
+        isAnswered = true; // Always can proceed
+    }
+    else if (q.type === 'drag_drop') {
+        isAnswered = true; // Always can proceed
+    }
+
+    if (currentIndex < questions.length - 1) {
+        if (isAnswered || q.type === 'numeric' || q.type === 'drag_drop' || q.type === 'true_false') {
+            const btn = document.createElement('button');
+            btn.innerText = 'Câu tiếp theo';
+            btn.onclick = () => {
+                currentIndex++;
+                selectedDragId = null;
+                renderQuestion();
+            };
+            actionContainer.appendChild(btn);
+        }
+    } else {
+        // Last question - Render Nộp bài if interacted
+        const btn = document.createElement('button');
+        btn.innerText = 'Nộp bài';
+        btn.id = 'btnSubmit';
+        btn.onclick = submitQuiz;
+        actionContainer.appendChild(btn);
+    }
+}
+
+function calculateScore() {
+    let soDung = 0;
+    let soSai = 0;
+    let soChuaLam = 0;
+    let diem = 0;
+
+    questions.forEach(q => {
+        if (q.type === 'single') {
+            const ans = userAnswers[q.originalId];
+            if (!ans) {
+                soChuaLam++;
+            } else if (ans === q.dapAnDungGoc) {
+                soDung++;
+                diem += 0.25;
+            } else {
+                soSai++;
+            }
+        } 
+        else if (q.type === 'true_false') {
+            const ans = userAnswers[q.originalId] || {};
+            let answeredCount = 0;
+            let correctCount = 0;
+            q.dapAnDungGoc.forEach(item => {
+                if (ans[item.key]) {
+                    answeredCount++;
+                    if ((ans[item.key] === 'True' && item.isTrue) || (ans[item.key] === 'False' && !item.isTrue)) {
+                        correctCount++;
+                        diem += 0.25; // 0.25 per item
+                    }
+                }
+            });
+            
+            if (answeredCount < 4) {
+                soChuaLam++;
+            } else if (correctCount === 4) {
+                soDung++;
+            } else {
+                soSai++;
+            }
+        }
+        else if (q.type === 'numeric') {
+            const ansStr = userAnswers[q.originalId] || '';
+            const cleanAns = ansStr.trim().replace(',', '.');
+            if (cleanAns === '') {
+                soChuaLam++;
+            } else {
+                const numAns = parseFloat(cleanAns);
+                if (numAns === q.correctValue) {
+                    soDung++;
+                    diem += 0.5;
+                } else {
+                    soSai++;
+                }
+            }
+        }
+        else if (q.type === 'drag_drop') {
+            const ans = userAnswers[q.originalId] || {};
+            let slotsCount = Object.keys(q.correctMapping).length;
+            let answeredSlots = 0;
+            let correctSlots = 0;
+
+            for (let slotId in q.correctMapping) {
+                if (ans[slotId]) {
+                    answeredSlots++;
+                    if (ans[slotId] === q.correctMapping[slotId]) {
+                        correctSlots++;
+                        diem += 0.5;
+                    }
+                }
+            }
+
+            if (answeredSlots < slotsCount) {
+                soChuaLam++;
+            } else if (correctSlots === slotsCount) {
+                soDung++;
+            } else {
+                soSai++;
+            }
+        }
+    });
+
+    const tongSoCau = 24;
+    soSai = tongSoCau - soDung - soChuaLam;
+
+    return { diem: Math.round(diem * 100) / 100, soDung, soSai, soChuaLam, tongSoCau };
+}
+
+window.addEventListener('beforeunload', function (e) {
+    const status = document.getElementById('saveStatus').innerText;
+    if (status.includes('Đang lưu')) {
+        e.preventDefault();
+        e.returnValue = 'Đang lưu dữ liệu, vui lòng chờ hoàn tất.';
+        return 'Đang lưu dữ liệu, vui lòng chờ hoàn tất.';
+    }
+});
+
+async function submitQuiz() {
+    if (daGuiDuLieu) return;
+    
+    // Check if last question interacted (business logic lock)
+    const qLast = questions[questions.length - 1];
+    let isLastInteracted = false;
+    if (qLast.type === 'single' && userAnswers[qLast.originalId]) isLastInteracted = true;
+    else if (qLast.type === 'numeric') isLastInteracted = true;
+    else if (qLast.type === 'drag_drop') isLastInteracted = true;
+    else if (qLast.type === 'true_false' && userAnswers[qLast.originalId] && Object.keys(userAnswers[qLast.originalId]).length > 0) isLastInteracted = true;
+
+    // Although rules state button only appears when selected, 
+    // for true_false/drag_drop they might be left blank by choice.
+    // Setting daGuiDuLieu prevents double click.
+    daGuiDuLieu = true;
+    const btnSubmit = document.getElementById('btnSubmit');
+    if(btnSubmit) btnSubmit.disabled = true;
+
+    // 1. Chấm điểm
+    const result = calculateScore();
+
+    // 2. Hiển thị bảng kết quả
+    document.getElementById('quizArea').classList.add('hidden');
+    document.getElementById('resultArea').classList.remove('hidden');
+    
+    document.getElementById('resScore').innerText = result.diem;
+    document.getElementById('resCorrect').innerText = result.soDung;
+    document.getElementById('resWrong').innerText = result.soSai;
+    document.getElementById('resUnanswered').innerText = result.soChuaLam;
+
+    // 3. Hiển thị đang lưu
+    const statusDiv = document.getElementById('saveStatus');
+    statusDiv.className = 'status-loading';
+    statusDiv.innerText = 'Đang lưu vào hệ thống...';
+
+    // 4, 5. await fetch gửi dữ liệu
+    const payload = {
+        hoTen: document.getElementById('hoTen').value.trim(),
+        lop: document.getElementById('lop').value.trim(),
+        diem: result.diem,
+        soDung: result.soDung,
+        soSai: result.soSai,
+        soChuaLam: result.soChuaLam,
+        tongSoCau: result.tongSoCau
+    };
+
+    try {
+        const response = await fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'text/plain;charset=utf-8'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        // 6. Chờ đọc xong JSON
+        const resData = await response.json();
+
+        // 7. Hiển thị trạng thái
+        if (resData.result === 'SUCCESS') {
+            statusDiv.className = 'status-success';
+            statusDiv.innerText = '✅ Đã lưu vào hệ thống';
+            document.getElementById('btnReview').classList.remove('hidden');
+            document.getElementById('btnRetry').classList.remove('hidden');
+        } else if (resData.result === 'KHONG_TIM_THAY_HOC_SINH') {
+            statusDiv.className = 'status-error';
+            statusDiv.innerText = '❌ Không tìm thấy học sinh trong hệ thống';
+            daGuiDuLieu = false;
+            if(btnSubmit) btnSubmit.disabled = false;
+        } else {
+            statusDiv.className = 'status-error';
+            statusDiv.innerText = '❌ Lỗi lưu: ' + (resData.message || 'Không xác định');
+            daGuiDuLieu = false;
+            if(btnSubmit) btnSubmit.disabled = false;
+        }
+    } catch (error) {
+        statusDiv.className = 'status-error';
+        statusDiv.innerText = '❌ Lỗi kết nối';
+        daGuiDuLieu = false; // allow retry
+        if(btnSubmit) btnSubmit.disabled = false;
+        // show a retry button specifically in results
+        document.getElementById('btnRetry').classList.remove('hidden');
+    }
+}
+
+// Review mode implementation
+document.getElementById('btnReview').addEventListener('click', () => {
+    isReviewMode = true;
+    currentIndex = 0;
+    document.getElementById('resultArea').classList.add('hidden');
+    document.getElementById('quizArea').classList.remove('hidden');
+    renderQuestionReview();
+});
+
+document.getElementById('btnRetry').addEventListener('click', () => {
+    location.reload();
+});
+
+function renderQuestionReview() {
+    const q = questions[currentIndex];
+    const wrapper = document.getElementById('questionWrapper');
+    let html = `<div class="question-text">Câu ${q.displayNumber}: ${q.text}</div>`;
+
+    if (q.type === 'single') {
+        html += `<div class="options">`;
+        const userAns = userAnswers[q.originalId];
+        q.options.forEach(opt => {
+            let colorClass = '';
+            if (opt.key === q.dapAnDungGoc) colorClass = 'correct-text';
+            else if (opt.key === userAns) colorClass = 'wrong-text';
+            
+            const checked = userAns === opt.key ? 'checked' : '';
+            html += `
+                <label class="${colorClass}">
+                    <input type="radio" disabled ${checked}>
+                    ${opt.displayLabel}. ${opt.text}
+                </label>
+            `;
+        });
+        html += `</div>`;
+    } 
+    else if (q.type === 'true_false') {
+        html += `<table class="tf-table"><tr><th>Phát biểu</th><th>Đúng</th><th>Sai</th><th>Đáp án gốc</th></tr>`;
+        const ans = userAnswers[q.originalId] || {};
+        q.items.forEach(item => {
+            const uAns = ans[item.key];
+            const correctStr = item.isTrue ? 'True' : 'False';
+            let bgClass = '';
+            if(uAns) {
+                bgClass = uAns === correctStr ? 'slot-correct' : 'slot-wrong';
+            }
+            html += `
+                <tr class="${bgClass}">
+                    <td>${item.displayLabel}) ${item.text}</td>
+                    <td><input type="radio" disabled ${uAns === 'True' ? 'checked' : ''}></td>
+                    <td><input type="radio" disabled ${uAns === 'False' ? 'checked' : ''}></td>
+                    <td style="font-weight:bold; color:green">${item.isTrue ? 'Đúng' : 'Sai'}</td>
+                </tr>
+            `;
+        });
+        html += `</table>`;
+    }
+    else if (q.type === 'numeric') {
+        const val = userAnswers[q.originalId] || '';
+        const cleanAns = val.trim().replace(',', '.');
+        const isCorrect = cleanAns !== '' && parseFloat(cleanAns) === q.correctValue;
+        html += `
+            <div>
+                <input type="text" class="numeric-input" disabled value="${val}">
+                ${isCorrect ? '<span class="correct-text">✅ Đúng</span>' : `<span class="wrong-text">❌ Sai</span> <span class="correction-box">Đáp án đúng: ${q.correctValue}</span>`}
+            </div>
+        `;
+    }
+    else if (q.type === 'drag_drop') {
+        const ans = userAnswers[q.originalId] || {};
+        let reviewText = q.text;
+        
+        for (let slotId in q.correctMapping) {
+            const correctDragId = q.correctMapping[slotId];
+            const correctObj = q.drags.find(d => d.id === correctDragId);
+            const userDragId = ans[slotId];
+            
+            let slotHtml = '';
+            if (!userDragId) {
+                slotHtml = `<span class="drop-slot slot-wrong" style="width:100px;"></span> <span class="correction-box">${correctObj.text}</span>`;
+            } else if (userDragId === correctDragId) {
+                const userObj = q.drags.find(d => d.id === userDragId);
+                slotHtml = `<span class="drop-slot slot-correct">${userObj.text}</span>`;
+            } else {
+                const userObj = q.drags.find(d => d.id === userDragId);
+                slotHtml = `<span class="drop-slot slot-wrong">${userObj.text}</span> <span class="correction-box">${correctObj.text}</span>`;
+            }
+            
+            reviewText = reviewText.replace(`<span class="drop-slot" data-slot-id="${slotId}"></span>`, slotHtml);
+        }
+        html += `<div>${reviewText}</div>`;
+    }
+
+    wrapper.innerHTML = html;
+    renderActions();
+}
+
+document.getElementById('btnStart').addEventListener('click', initQuiz);
+
+</script>
+</body>
+</html>
